@@ -19,7 +19,10 @@ private:
     vector<tDebugShapeInfo>     m_vecShapeInfo;
 
     vector<tLightInfo>          m_vecLight2D;
+    vector<tLightInfo>          m_vecLight3D;
+
     CStructuredBuffer*          m_Light2DBuffer;
+    CStructuredBuffer*          m_Light3DBuffer;
 
     void (CRenderMgr::* RENDER_FUNC)(void);
 
@@ -35,6 +38,7 @@ public:
     void RegisterEditorCamera(CCamera* _Cam) { m_pEditorCam = _Cam; }
     void SetRenderFunc(bool _IsPlay);
     void RegisterLight2D(const tLightInfo& _Light2D) { m_vecLight2D.push_back(_Light2D); }
+    void RegisterLight3D(const tLightInfo& _Light3D) { m_vecLight3D.push_back(_Light3D); }
     void ClearCamera() { m_vecCam.clear(); }
 
     void AddDebugShapeInfo(const tDebugShapeInfo& _info) { m_vecShapeInfo.push_back(_info); }

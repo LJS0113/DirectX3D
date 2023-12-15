@@ -9,6 +9,7 @@ class CParticleSystem;
 class CCollider2D;
 class CAnimator2D;
 class CLight2D;
+class CLight3D;
 class CCamera;
 class CRenderComponent;
 class CTileMap;
@@ -59,6 +60,7 @@ public:
     GET_COMPONENT(Camera, CAMERA);
     GET_COMPONENT(Collider2D, COLLIDER2D);
     GET_COMPONENT(Light2D, LIGHT2D);
+    GET_COMPONENT(Light3D, LIGHT3D);
     GET_COMPONENT(TileMap, TILEMAP);
     GET_COMPONENT(Animator2D, ANIMATOR2D);
 

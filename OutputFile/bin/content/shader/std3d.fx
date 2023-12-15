@@ -4,14 +4,6 @@
 #include "value.fx"
 #include "func.fx"
 
-static float3 g_vLightPos = float3(0.f, 0.f, 0.f);
-static float3 g_vLightDir = float3(1.f, -1.f, 1.f);
-
-static float3 g_vLightColor = float3(1.f, 1.f, 1.f);
-static float g_fLightSpecCoeff = 0.3f;
-static float3 g_vLightAmb = float3(0.15f, 0.15, 0.15);
-
-
 struct VS_IN
 {
     float3 vPos : POSITION;
@@ -32,6 +24,14 @@ struct VS_OUT
     float3 vViewTangent : TANGENT;
     float3 vViewBinormal : BINORMAL;
 };
+
+
+//
+// Std3DShader
+//
+// Param
+// 반사 계수
+#define SPEC_COFFE g_float_0 
 
 VS_OUT VS_Std3D(VS_IN _in)
 {
@@ -79,26 +79,18 @@ float4 PS_Std3D(VS_OUT _in) : SV_Target
         vViewNormal = mul(vNormal, vRotateMat);
         
     }
+   
+    tLightColor lightcolor = (tLightColor) 0.f;
+    float fSpecPow = 0.f;
     
-    // (월드상)-> ViewSpace에서의 광원의 방향
-    float3 vViewLightDir = normalize(mul(float4(normalize(g_vLightDir), 0.f), g_matView)).xyz;
+    for (int i = 0; i < g_Light3DCount; i++)
+    {
+        CalcLight3D(_in.vViewPos, vViewNormal, i, lightcolor, fSpecPow);
+    }
     
-    // (월드상)-> ViewSpace에서의 노말벡터와 광원의 방향을 내적(램버트 코사인 법칙)
-    float fLightPow = saturate(dot(vViewNormal, -vViewLightDir));
-    
-    // 반사광
-    float3 vViewReflect = normalize(vViewLightDir + 2.f * (dot(-vViewLightDir, vViewNormal)) * vViewNormal);
-    // 바라보는 방향
-    float3 vEye = normalize(_in.vViewPos);
-    
-    // 반사광의 세기 구하기
-    float fSpecPow = saturate(dot(vViewReflect, -vEye));
-    // cos 그래프를 쓰므로 주변이 너무 밝음, 그래서 조금만 멀어지더라도 확 어두워지게.
-    fSpecPow = pow(fSpecPow, 20);
-        
-    vOutColor.xyz = (vOutColor.xyz * g_vLightColor * fLightPow)
-                    + (vOutColor.xyz * g_vLightColor * g_vLightAmb)
-                    + g_vLightColor * g_fLightSpecCoeff * fSpecPow;
+    vOutColor.xyz = vOutColor.xyz * lightcolor.vDiffuse.xyz
+                    + vOutColor.xyz * lightcolor.vAmbient.xyz
+                    + saturate(g_Light3DBuffer[0].Color.vDiffuse.xyz) * 0.3f * fSpecPow * SPEC_COFFE;
     
     return vOutColor;
 }

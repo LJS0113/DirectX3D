@@ -82,33 +82,47 @@ void CreateTestLevel()
 
 	// 광원 추가
 	CGameObject* pLightObj = new CGameObject;
-	pLightObj->SetName(L"Point Light");
+	pLightObj->SetName(L"Point Light 1");
 
 	pLightObj->AddComponent(new CTransform);
-	pLightObj->AddComponent(new CLight2D);
+	pLightObj->AddComponent(new CLight3D);
 
-	pLightObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f));
-	pLightObj->Transform()->SetRelativeRot(Vec3(0.f, 0.f, XM_PI / 2.f));
+	//pLightObj->Transform()->SetRelativeRot(Vec3(XM_PI / 4.f, XM_PI / 4.f, 0.f));
+	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
+	//pLightObj->Light3D()->SetLightColor(Vec3(1.f, 1.f, 1.f));	
+	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.15f, 0.15f, 0.15f));
 
-	pLightObj->Light2D()->SetLightType(LIGHT_TYPE::POINT);
-	pLightObj->Light2D()->SetLightDiffuse(Vec3(1.f, 1.f, 1.f));
-	pLightObj->Light2D()->SetRadius(500.f);
+	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
+	pLightObj->Light3D()->SetLightColor(Vec3(1.f, 0.2f, 0.2f));
+	pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
+	pLightObj->Light3D()->SetRadius(1000.f);
 
-	SpawnGameObject(pLightObj, Vec3(0.f, 0.f, 0.f), 0);
+	SpawnGameObject(pLightObj, Vec3(-500.f, -250.f, 0.f), 0);
 
+
+	pLightObj = new CGameObject;
+	pLightObj->SetName(L"Point Light 2");
+
+	pLightObj->AddComponent(new CTransform);
+	pLightObj->AddComponent(new CLight3D);
+
+	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
+	pLightObj->Light3D()->SetLightColor(Vec3(0.2f, 0.2f, 1.f));
+	pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
+	pLightObj->Light3D()->SetRadius(1000.f);
+
+	SpawnGameObject(pLightObj, Vec3(500.f, -250.f, 0.f), 0);
 
 	// 오브젝트 생성
 	CGameObject* pParent = new CGameObject;
 	pParent->SetName(L"Player");
 	pParent->AddComponent(new CTransform);
 	pParent->AddComponent(new CMeshRender);
-	//pParent->AddComponent(new CCollider2D);
-	//pParent->AddComponent(new CAnimator2D);
 	pParent->AddComponent(new CPlayerScript);
 
-	pParent->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 200.f));
-
-	pParent->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"SphereMesh"));
+	pParent->Transform()->SetRelativeScale(Vec3(2000.f, 2000.f, 2000.f));
+	pParent->Transform()->SetRelativeRot(Vec3(XM_PI / 2.f, 0.f, 0.f));
+	pParent->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	pParent->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std3DMtrl"));
 
 	//pParent->Collider2D()->SetAbsolute(true);
@@ -119,7 +133,7 @@ void CreateTestLevel()
 	//pParent->Animator2D()->CreateAnimation(L"WalkLeft", pAnimAtlas, Vec2(0.f, 650.f), Vec2(120.f, 130.f), Vec2(300.f, 300.f), 10, 16);
 	//pParent->Animator2D()->Play(L"WalkLeft", true);
 
-	SpawnGameObject(pParent, Vec3(0.f, 0.f, 500.f), L"Player");
+	SpawnGameObject(pParent, Vec3(0.f, -500.f, 0.f), L"Player");
 
 
 	//CGameObject* pChild = new CGameObject;

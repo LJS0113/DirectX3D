@@ -38,6 +38,11 @@ void CResMgr::CreateDefaultMesh()
 	v.vPos = Vec3(-0.5f, 0.5f, 0.f);
 	v.vColor = Vec4(1.f, 0.f, 0.f, 1.f);
 	v.vUV = Vec2(0.f, 0.f);
+
+	v.vNormal = Vec3(0.f, 0.f, -1.f);
+	v.vTangent = Vec3(1.f, 0.f, 0.f);
+	v.vBinormal = Vec3(0.f, -1.f, 0.f);
+
 	vecVtx.push_back(v);
 
 	v.vPos = Vec3(0.5f, 0.5f, 0.f);
@@ -99,6 +104,11 @@ void CResMgr::CreateDefaultMesh()
 	v.vPos = Vec3(0.f, 0.f, 0.f);
 	v.vColor = Vec4(1.f, 1.f, 1.f, 1.f);
 	v.vUV = Vec2(0.5f, 0.5f);
+
+	v.vNormal = Vec3(0.f, 0.f, -1.f);
+	v.vTangent = Vec3(1.f, 0.f, 0.f);
+	v.vBinormal = Vec3(0.f, -1.f, 0.f);
+
 	vecVtx.push_back(v);
 
 	// 정점 위치 지정
@@ -617,6 +627,8 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASK);
 
 	// Parameter
+	pShader->AddScalarParam(FLOAT_0, "Spec Coeff");
+
 	pShader->AddTexParam(TEX_0, "Output Texture");
 	pShader->AddTexParam(TEX_1, "Normal Texture");
 
