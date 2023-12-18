@@ -154,6 +154,9 @@
     <ClInclude Include="CLight3D.h">
       <Filter>Source\06. Component\5. Light3D</Filter>
     </ClInclude>
+    <ClInclude Include="CSkyBox.h">
+      <Filter>Source\06. Component\RenderComponent\6. SkyBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -293,6 +296,9 @@
     </ClCompile>
     <ClCompile Include="CLight3D.cpp">
       <Filter>Source\06. Component\5. Light3D</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkyBox.cpp">
+      <Filter>Source\06. Component\RenderComponent\6. SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -440,6 +446,18 @@
     <Filter Include="Source\06. Component\6. Animator2D">
       <UniqueIdentifier>{7d787944-7b75-432b-91a9-8452604ba075}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\08. ShaderCode\Util">
+      <UniqueIdentifier>{c9cf787d-efa4-4aef-8634-2f76319a1610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. ShaderCode\Render">
+      <UniqueIdentifier>{59120743-f42a-46b8-b9ef-32100506a448}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\08. ShaderCode\PostProcess">
+      <UniqueIdentifier>{a1d4e113-4167-474f-8c4b-90d36bd8c8ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\06. Component\RenderComponent\6. SkyBox">
+      <UniqueIdentifier>{6bd0f92b-07ee-433e-a4f1-ef16d481ffe4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -448,41 +466,44 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="value.fx">
-      <Filter>Source\08. ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="std2d.fx">
-      <Filter>Source\08. ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="debugshape.fx">
-      <Filter>Source\08. ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="struct.fx">
-      <Filter>Source\08. ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="func.fx">
-      <Filter>Source\08. ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="tilemap.fx">
-      <Filter>Source\08. ShaderCode</Filter>
-    </FxCompile>
     <FxCompile Include="setcolor.fx">
       <Filter>Source\08. ShaderCode\Compute\SetColor</Filter>
     </FxCompile>
     <FxCompile Include="particle_update.fx">
       <Filter>Source\08. ShaderCode\Compute\ParticleUpdate</Filter>
     </FxCompile>
-    <FxCompile Include="particle_render.fx">
-      <Filter>Source\08. ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="postprocess.fx">
-      <Filter>Source\08. ShaderCode</Filter>
-    </FxCompile>
     <FxCompile Include="test.fx">
       <Filter>Source\08. ShaderCode</Filter>
     </FxCompile>
+    <FxCompile Include="func.fx">
+      <Filter>Source\08. ShaderCode\Util</Filter>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
+      <Filter>Source\08. ShaderCode\Util</Filter>
+    </FxCompile>
+    <FxCompile Include="value.fx">
+      <Filter>Source\08. ShaderCode\Util</Filter>
+    </FxCompile>
+    <FxCompile Include="debugshape.fx">
+      <Filter>Source\08. ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="particle_render.fx">
+      <Filter>Source\08. ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="std2d.fx">
+      <Filter>Source\08. ShaderCode\Render</Filter>
+    </FxCompile>
     <FxCompile Include="std3d.fx">
-      <Filter>Source\08. ShaderCode</Filter>
+      <Filter>Source\08. ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="tilemap.fx">
+      <Filter>Source\08. ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="postprocess.fx">
+      <Filter>Source\08. ShaderCode\PostProcess</Filter>
+    </FxCompile>
+    <FxCompile Include="skybox.fx">
+      <Filter>Source\08. ShaderCode\Render</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

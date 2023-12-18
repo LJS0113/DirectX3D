@@ -23,17 +23,17 @@ void CreateTestLevel()
 {
 	//return;
 
-	// 컴퓨트 쉐이더 테스트
-	Ptr<CTexture> pTestTexture = 
-		CResMgr::GetInst()->CreateTexture(L"ComputeTestTex"
-			, 200, 200, DXGI_FORMAT_R8G8B8A8_UNORM
-			, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS
-			, D3D11_USAGE_DEFAULT );
+	//// 컴퓨트 쉐이더 테스트
+	//Ptr<CTexture> pTestTexture = 
+	//	CResMgr::GetInst()->CreateTexture(L"ComputeTestTex"
+	//		, 200, 200, DXGI_FORMAT_R8G8B8A8_UNORM
+	//		, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS
+	//		, D3D11_USAGE_DEFAULT );
 
-	Ptr<CSetColorShader> pCS = (CSetColorShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"SetColorCS").Get();
-	pCS->SetTargetTexture(pTestTexture);
-	pCS->SetColor(Vec3(1.f, 0.f, 1.f));
-	pCS->Execute();
+	//Ptr<CSetColorShader> pCS = (CSetColorShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"SetColorCS").Get();
+	//pCS->SetTargetTexture(pTestTexture);
+	//pCS->SetColor(Vec3(1.f, 0.f, 1.f));
+	//pCS->Execute();
 
 
 	//Ptr<CSound> pSound = CResMgr::GetInst()->FindRes<CSound>(L"sound\\BGM_Stage1.wav");
@@ -79,6 +79,20 @@ void CreateTestLevel()
 
 	SpawnGameObject(pUICam, Vec3(0.f, 0.f, 0.f), 0);
 
+	// SkyBox 추가
+	CGameObject* pSkyBox = new CGameObject;
+	pSkyBox->SetName(L"SkyBox");
+
+	pSkyBox->AddComponent(new CTransform);
+	pSkyBox->AddComponent(new CSkyBox);
+
+	pSkyBox->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 100.f));
+	pSkyBox->SkyBox()->SetSkyBoxType(SKYBOX_TYPE::SPHERE);
+	pSkyBox->SkyBox()->SetSkyBoxTexture(CResMgr::GetInst()->FindRes<CTexture>(L"texture\\skybox\\Sky01.png"));
+
+	SpawnGameObject(pSkyBox, Vec3(0.f, 0.f, 0.f), 0);
+
+
 
 	// 광원 추가
 	CGameObject* pLightObj = new CGameObject;
@@ -92,26 +106,32 @@ void CreateTestLevel()
 	//pLightObj->Light3D()->SetLightColor(Vec3(1.f, 1.f, 1.f));	
 	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.15f, 0.15f, 0.15f));
 
-	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
+	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
+	//pLightObj->Light3D()->SetLightColor(Vec3(1.f, 0.2f, 0.2f));
+	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
+	//pLightObj->Light3D()->SetRadius(1000.f);
+
+	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::SPOT);
 	pLightObj->Light3D()->SetLightColor(Vec3(1.f, 0.2f, 0.2f));
 	pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
 	pLightObj->Light3D()->SetRadius(1000.f);
+	pLightObj->Light3D()->SetAngle(XM_PI / 4.f);
 
 	SpawnGameObject(pLightObj, Vec3(-500.f, -250.f, 0.f), 0);
 
 
-	pLightObj = new CGameObject;
-	pLightObj->SetName(L"Point Light 2");
+	//pLightObj = new CGameObject;
+	//pLightObj->SetName(L"Point Light 2");
 
-	pLightObj->AddComponent(new CTransform);
-	pLightObj->AddComponent(new CLight3D);
+	//pLightObj->AddComponent(new CTransform);
+	//pLightObj->AddComponent(new CLight3D);
 
-	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
-	pLightObj->Light3D()->SetLightColor(Vec3(0.2f, 0.2f, 1.f));
-	pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
-	pLightObj->Light3D()->SetRadius(1000.f);
+	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
+	//pLightObj->Light3D()->SetLightColor(Vec3(0.2f, 0.2f, 1.f));
+	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
+	//pLightObj->Light3D()->SetRadius(1000.f);
 
-	SpawnGameObject(pLightObj, Vec3(500.f, -250.f, 0.f), 0);
+	//SpawnGameObject(pLightObj, Vec3(500.f, -250.f, 0.f), 0);
 
 	// 오브젝트 생성
 	CGameObject* pParent = new CGameObject;

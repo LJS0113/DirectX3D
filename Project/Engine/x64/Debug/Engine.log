@@ -35,6 +35,7 @@
   .\Project\Engine\CSetColorShader.h
   .\Project\Engine\CShader.h
   .\Project\Engine\CSingleton.h
+  .\Project\Engine\CSkyBox.h
   .\Project\Engine\CSound.h
   .\Project\Engine\CStructuredBuffer.h
   .\Project\Engine\CTexture.h
@@ -47,20 +48,21 @@
   .\Project\Engine\ptr.h
   .\Project\Engine\SimpleMath.h
   .\Project\Engine\struct.h
-  49개 파일이 복사되었습니다.
+  50개 파일이 복사되었습니다.
   .\Project\Engine\debugshape.fx
   .\Project\Engine\func.fx
   .\Project\Engine\particle_render.fx
   .\Project\Engine\particle_update.fx
   .\Project\Engine\postprocess.fx
   .\Project\Engine\setcolor.fx
+  .\Project\Engine\skybox.fx
   .\Project\Engine\std2d.fx
   .\Project\Engine\std3d.fx
   .\Project\Engine\struct.fx
   .\Project\Engine\test.fx
   .\Project\Engine\tilemap.fx
   .\Project\Engine\value.fx
-  12개 파일이 복사되었습니다.
+  13개 파일이 복사되었습니다.
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
   //
@@ -107,6 +109,10 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -146,7 +152,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
 C:\Dx3DEngine\Project\Engine\func.fx(8,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
 C:\Dx3DEngine\Project\Engine\func.fx(34,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
-C:\Dx3DEngine\Project\Engine\func.fx(170,13-81): warning X3206: implicit truncation of vector type
+C:\Dx3DEngine\Project\Engine\func.fx(212,13-81): warning X3206: implicit truncation of vector type
   
   //
   // FX Version: fx_5_0
@@ -192,6 +198,10 @@ C:\Dx3DEngine\Project\Engine\func.fx(170,13-81): warning X3206: implicit truncat
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -275,6 +285,10 @@ C:\Dx3DEngine\Project\Engine\particle_render.fx(100,20-70): warning X3206: impli
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -316,7 +330,7 @@ C:\Dx3DEngine\Project\Engine\particle_render.fx(100,20-70): warning X3206: impli
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
 C:\Dx3DEngine\Project\Engine\func.fx(8,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
 C:\Dx3DEngine\Project\Engine\func.fx(34,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
-C:\Dx3DEngine\Project\Engine\func.fx(170,13-81): warning X3206: implicit truncation of vector type
+C:\Dx3DEngine\Project\Engine\func.fx(212,13-81): warning X3206: implicit truncation of vector type
 C:\Dx3DEngine\Project\Engine\particle_update.fx(110,29-106): warning X3206: implicit truncation of vector type
   
   //
@@ -363,6 +377,10 @@ C:\Dx3DEngine\Project\Engine\particle_update.fx(110,29-106): warning X3206: impl
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -449,6 +467,10 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -531,6 +553,10 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -571,7 +597,13 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
 C:\Dx3DEngine\Project\Engine\func.fx(8,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
 C:\Dx3DEngine\Project\Engine\func.fx(34,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
-C:\Dx3DEngine\Project\Engine\func.fx(170,13-81): warning X3206: implicit truncation of vector type
+C:\Dx3DEngine\Project\Engine\func.fx(212,13-81): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Dx3DEngine\External\Library\Engine\skybox.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Dx3DEngine\Project\Engine\func.fx(8,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
+C:\Dx3DEngine\Project\Engine\func.fx(34,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
+C:\Dx3DEngine\Project\Engine\func.fx(212,13-81): warning X3206: implicit truncation of vector type
 C:\Dx3DEngine\Project\Engine\std2d.fx(160,9-50): warning X3206: implicit truncation of vector type
   
   //
@@ -618,6 +650,10 @@ C:\Dx3DEngine\Project\Engine\std2d.fx(160,9-50): warning X3206: implicit truncat
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -655,13 +691,27 @@ C:\Dx3DEngine\Project\Engine\std2d.fx(160,9-50): warning X3206: implicit truncat
   };
   
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Dx3DEngine\Project\Engine\func.fx(8,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
+C:\Dx3DEngine\Project\Engine\func.fx(34,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
+C:\Dx3DEngine\Project\Engine\func.fx(212,13-81): warning X3206: implicit truncation of vector type
+C:\Dx3DEngine\Project\Engine\std3d.fx(41,5-57): warning X3206: implicit truncation of vector type
+C:\Dx3DEngine\Project\Engine\std3d.fx(86,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
+  
+  compilation object save succeeded; see C:\Dx3DEngine\External\Library\Engine\std3d.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
   //
   // FX Version: fx_5_0
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
 C:\Dx3DEngine\Project\Engine\func.fx(8,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
 C:\Dx3DEngine\Project\Engine\func.fx(34,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
-C:\Dx3DEngine\Project\Engine\func.fx(170,13-81): warning X3206: implicit truncation of vector type
+C:\Dx3DEngine\Project\Engine\func.fx(212,13-81): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Dx3DEngine\External\Library\Engine\test.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Dx3DEngine\Project\Engine\func.fx(8,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
+C:\Dx3DEngine\Project\Engine\func.fx(34,21-38): warning X3203: signed/unsigned mismatch, unsigned assumed
+C:\Dx3DEngine\Project\Engine\func.fx(212,13-81): warning X3206: implicit truncation of vector type
   
   //
   // FX Version: fx_5_0
@@ -707,6 +757,10 @@ C:\Dx3DEngine\Project\Engine\func.fx(170,13-81): warning X3206: implicit truncat
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -790,6 +844,10 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
       int     g_btex_5;                   // Offset:  404, size:    4
       int     g_btex_6;                   // Offset:  408, size:    4
       int     g_btex_7;                   // Offset:  412, size:    4
+      int     g_btexture_0;               // Offset:  416, size:    4
+      int     g_btexture_1;               // Offset:  420, size:    4
+      int     g_btexarr_0;                // Offset:  424, size:    4
+      int     g_btexarr_1;                // Offset:  428, size:    4
   }
   
   cbuffer GLOBAL : register(b2)
@@ -825,61 +883,5 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   SamplerState g_sam_1
   {
   };
-  
-  unity_RE2P68N6A8ABYRSO.cpp
-C:\Dx3DEngine\Project\Engine\CRenderMgr.cpp(132,70): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Dx3DEngine\Project\Engine\CRenderMgr.cpp(136,70): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Dx3DEngine\Project\Engine\CRenderMgr.cpp(143,70): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Dx3DEngine\Project\Engine\CRenderMgr.cpp(147,70): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Dx3DEngine\Project\Engine\CRenderMgr.cpp(151,48): warning C4267: '=': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Dx3DEngine\Project\Engine\CRenderMgr.cpp(152,48): warning C4267: '=': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Dx3DEngine\Project\Engine\CSetColorShader.cpp(33,55): warning C4244: '=': 'float'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Dx3DEngine\Project\Engine\CSetColorShader.cpp(34,56): warning C4244: '=': 'float'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Dx3DEngine\Project\Engine\CTileMap.cpp(53,52): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244: '인수': 'const wchar_t'에서 'const _Elem'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:             _Elem=char
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:         ]
-  (소스 파일 'unity_RE2P68N6A8ABYRSO.cpp'을(를) 컴파일하는 중)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53):
-  템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
-  	C:\Dx3DEngine\Project\Engine\CSound.cpp(103,13):
-  	컴파일되는 함수 템플릿 인스턴스화 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_const_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)'에 대한 참조를 확인하세요.
-          with
-          [
-              _Elem=wchar_t,
-              _Iter=std::_String_const_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
-              _Alloc=std::allocator<char>
-          ]
-  		C:\Dx3DEngine\Project\Engine\CSound.cpp(103,13):
-  		'CSound::Load'에서 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string'에 대한 첫 번째 참조를 확인하세요.
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2590,17):
-  	컴파일되는 함수 템플릿 인스턴스화 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<const wchar_t*,const wchar_t*,_Size_type>(_Iter,const _Sent,_Size)'에 대한 참조를 확인하세요.
-          with
-          [
-              _Size_type=unsigned __int64,
-              _Iter=const wchar_t *,
-              _Sent=const wchar_t *,
-              _Size=unsigned __int64
-          ]
   
   Engine.vcxproj -> C:\Dx3DEngine\External\Library\Engine\Engine_d.lib

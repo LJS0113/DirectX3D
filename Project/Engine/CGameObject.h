@@ -12,6 +12,7 @@ class CLight2D;
 class CLight3D;
 class CCamera;
 class CRenderComponent;
+class CSkyBox;
 class CTileMap;
 class CScript;
 
@@ -63,6 +64,7 @@ public:
     GET_COMPONENT(Light3D, LIGHT3D);
     GET_COMPONENT(TileMap, TILEMAP);
     GET_COMPONENT(Animator2D, ANIMATOR2D);
+    GET_COMPONENT(SkyBox, SKYBOX);
 
     CRenderComponent* GetRenderComponent() const {  return m_RenderCom; }
 

@@ -57,12 +57,12 @@ float4 PS_Std3D(VS_OUT _in) : SV_Target
     
     float3 vViewNormal = _in.vViewNormal;
     
-    if(g_btex_0)
+    if (g_btex_0)
     {
         vOutColor = g_tex_0.Sample(g_sam_0, _in.vUV);
     }
     
-    if(g_btex_1)
+    if (g_btex_1)
     {
         float3 vNormal = g_tex_1.Sample(g_sam_0, _in.vUV).xyz;
         
