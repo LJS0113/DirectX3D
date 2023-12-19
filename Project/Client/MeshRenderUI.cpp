@@ -36,7 +36,7 @@ int MeshRenderUI::render_update()
 	ImGui::SameLine();	
 	GetResKey(pMesh.Get(), szBuff, 50);
 	ImGui::InputText("##MeshName", szBuff, 50, ImGuiInputTextFlags_ReadOnly);
-
+	 
 	// Mesh 드랍 체크
 	if (ImGui::BeginDragDropTarget())
 	{

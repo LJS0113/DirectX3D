@@ -24,6 +24,9 @@
 #include "C:\Dx3DEngine\Project\Engine\CConstBuffer.cpp"
 
 
+#include "C:\Dx3DEngine\Project\Engine\CDecal.cpp"
+
+
 #include "C:\Dx3DEngine\Project\Engine\CDevice.cpp"
 
 
@@ -67,4 +70,7 @@
 
 
 #include "C:\Dx3DEngine\Project\Engine\CMeshRender.cpp"
+
+
+#include "C:\Dx3DEngine\Project\Engine\CMRT.cpp"
 

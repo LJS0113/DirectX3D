@@ -194,6 +194,7 @@ enum class SHADER_DOMAIN
 {
 	DOMAIN_OPAQUE,		// 불투명 오브젝트
 	DOMAIN_MASK,		// 불투명, 완전 투명
+	DOMAIN_DECAL,		// 데칼 오브젝트
 	DOMAIN_TRANSPARENT,	// 반투명
 	DOMAIN_POSTPROCESS, // 후 처리
 	DOMAIN_UI,
@@ -263,5 +264,14 @@ enum class PARTICLE_MODULE
 	RENDER,
 	DUMMY_3,
 
+	END,
+};
+
+enum class MRT_TYPE
+{
+	SWAPCHAIN,
+	DEFERRED,
+	LIGHT,
+	SHADOWMAP,
 	END,
 };

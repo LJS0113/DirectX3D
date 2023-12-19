@@ -7,6 +7,7 @@
 class CCamera;
 class CLight2D;
 class CStructuredBuffer;
+class CMRT;
 
 class CRenderMgr :
     public CSingleton<CRenderMgr>
@@ -23,6 +24,8 @@ private:
 
     CStructuredBuffer*          m_Light2DBuffer;
     CStructuredBuffer*          m_Light3DBuffer;
+
+    CMRT*                       m_MRT[(UINT)MRT_TYPE::END];
 
     void (CRenderMgr::* RENDER_FUNC)(void);
 
@@ -60,6 +63,6 @@ private:
     void render_editor();
     void Clear();
 
-
+    void CreateMRT();
 };
 

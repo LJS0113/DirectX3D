@@ -3,6 +3,9 @@
   <ProjectOutputs />
   <ContentFiles>
     <ContentFile>
+      <FullPath>C:\Dx3DEngine\External\Library\Engine\decal.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Dx3DEngine\External\Library\Engine\skybox.cso</FullPath>
     </ContentFile>
     <ContentFile>

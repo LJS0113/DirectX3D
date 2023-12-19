@@ -20,6 +20,7 @@ struct VS_OUT
     float2 vUV : TEXCOORD;
     
     float3 vViewPos : POSITION;
+    
     float3 vViewNormal : NORMAL;
     float3 vViewTangent : TANGENT;
     float3 vViewBinormal : BINORMAL;
@@ -31,7 +32,12 @@ struct VS_OUT
 //
 // Param
 // 반사 계수
-#define SPEC_COFFE g_float_0 
+#define SPEC_COFFE saturate(g_float_0) 
+
+#define IS_SKYBOX_ENV   g_btexcube_0
+#define SKYBOX_ENV_TEX      g_cube_0
+
+
 
 VS_OUT VS_Std3D(VS_IN _in)
 {
@@ -76,7 +82,7 @@ float4 PS_Std3D(VS_OUT _in) : SV_Target
             _in.vViewNormal
         };
             
-        vViewNormal = mul(vNormal, vRotateMat);
+        vViewNormal = normalize(mul(vNormal, vRotateMat));
         
     }
    
@@ -91,6 +97,16 @@ float4 PS_Std3D(VS_OUT _in) : SV_Target
     vOutColor.xyz = vOutColor.xyz * lightcolor.vDiffuse.xyz
                     + vOutColor.xyz * lightcolor.vAmbient.xyz
                     + saturate(g_Light3DBuffer[0].Color.vDiffuse.xyz) * 0.3f * fSpecPow * SPEC_COFFE;
+    
+    if(IS_SKYBOX_ENV)
+    {
+        float3 vEye = normalize(_in.vViewPos);
+        float3 vEyeReflect = normalize(reflect(vEye, vViewNormal));
+        
+        vEyeReflect = normalize(mul(float4(vEyeReflect, 0.f), g_matViewInv));
+        
+        vOutColor *= SKYBOX_ENV_TEX.Sample(g_sam_2, vEyeReflect);
+    }
     
     return vOutColor;
 }

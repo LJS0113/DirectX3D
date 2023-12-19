@@ -9,11 +9,13 @@
 #include "CLight2D.h"
 
 #include "CResMgr.h"
+#include "CMRT.h"
 
 CRenderMgr::CRenderMgr()
     : m_Light2DBuffer(nullptr)
     , RENDER_FUNC(nullptr)
     , m_pEditorCam(nullptr)
+    , m_MRT{}
 {
     Vec2 vResolution = CDevice::GetInst()->GetRenderResolution();
     m_RTCopyTex = CResMgr::GetInst()->CreateTexture(L"RTCopyTex"
@@ -32,28 +34,20 @@ CRenderMgr::~CRenderMgr()
         delete m_Light2DBuffer;
     if (nullptr != m_Light3DBuffer)
         delete m_Light3DBuffer;
+
+    DeleteArray(m_MRT);
 }
 
 
-void CRenderMgr::init()
-{
-    // Light2DBuffer 구조화 버퍼 생성
-    m_Light2DBuffer = new CStructuredBuffer;
-    m_Light2DBuffer->Create(sizeof(tLightInfo), 10, SB_TYPE::READ_ONLY, true);
-
-    // Light3DBuffer 구조화 버퍼 생성
-    m_Light3DBuffer = new CStructuredBuffer;
-    m_Light3DBuffer->Create(sizeof(tLightInfo), 10, SB_TYPE::READ_ONLY, true);
-}
 
 void CRenderMgr::render()
 {
     // 렌더링 시작
     float arrColor[4] = { 0.2f, 0.2f, 0.2f, 1.f };
-    CDevice::GetInst()->ClearTarget(arrColor);
+    m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->ClearTarget();
 
     // 출력 타겟 지정    
-    CDevice::GetInst()->OMSet();
+    m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->OMSet();
 
     // 광원 및 전역 데이터 업데이트 및 바인딩
     UpdateData();

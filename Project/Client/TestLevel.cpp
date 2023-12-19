@@ -87,8 +87,8 @@ void CreateTestLevel()
 	pSkyBox->AddComponent(new CSkyBox);
 
 	pSkyBox->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 100.f));
-	pSkyBox->SkyBox()->SetSkyBoxType(SKYBOX_TYPE::SPHERE);
-	pSkyBox->SkyBox()->SetSkyBoxTexture(CResMgr::GetInst()->FindRes<CTexture>(L"texture\\skybox\\Sky01.png"));
+	pSkyBox->SkyBox()->SetSkyBoxType(SKYBOX_TYPE::CUBE);
+	pSkyBox->SkyBox()->SetSkyBoxTexture(CResMgr::GetInst()->FindRes<CTexture>(L"texture\\skybox\\SkyWater.dds"));
 
 	SpawnGameObject(pSkyBox, Vec3(0.f, 0.f, 0.f), 0);
 
@@ -101,59 +101,38 @@ void CreateTestLevel()
 	pLightObj->AddComponent(new CTransform);
 	pLightObj->AddComponent(new CLight3D);
 
-	//pLightObj->Transform()->SetRelativeRot(Vec3(XM_PI / 4.f, XM_PI / 4.f, 0.f));
-	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
-	//pLightObj->Light3D()->SetLightColor(Vec3(1.f, 1.f, 1.f));	
-	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.15f, 0.15f, 0.15f));
+	pLightObj->Transform()->SetRelativeRot(Vec3(XM_PI / 4.f, XM_PI / 4.f, 0.f));
+	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
+	pLightObj->Light3D()->SetLightColor(Vec3(1.f, 1.f, 1.f));	
+	pLightObj->Light3D()->SetLightAmbient(Vec3(0.15f, 0.15f, 0.15f));
 
 	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
 	//pLightObj->Light3D()->SetLightColor(Vec3(1.f, 0.2f, 0.2f));
 	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
 	//pLightObj->Light3D()->SetRadius(1000.f);
 
-	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::SPOT);
-	pLightObj->Light3D()->SetLightColor(Vec3(1.f, 0.2f, 0.2f));
-	pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
-	pLightObj->Light3D()->SetRadius(1000.f);
-	pLightObj->Light3D()->SetAngle(XM_PI / 4.f);
+	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::SPOT);
+	//pLightObj->Light3D()->SetLightColor(Vec3(1.f, 0.2f, 0.2f));
+	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
+	//pLightObj->Light3D()->SetRadius(1000.f);
+	//pLightObj->Light3D()->SetAngle(XM_PI / 4.f);
 
 	SpawnGameObject(pLightObj, Vec3(-500.f, -250.f, 0.f), 0);
 
-
-	//pLightObj = new CGameObject;
-	//pLightObj->SetName(L"Point Light 2");
-
-	//pLightObj->AddComponent(new CTransform);
-	//pLightObj->AddComponent(new CLight3D);
-
-	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
-	//pLightObj->Light3D()->SetLightColor(Vec3(0.2f, 0.2f, 1.f));
-	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
-	//pLightObj->Light3D()->SetRadius(1000.f);
-
-	//SpawnGameObject(pLightObj, Vec3(500.f, -250.f, 0.f), 0);
-
 	// 오브젝트 생성
-	CGameObject* pParent = new CGameObject;
-	pParent->SetName(L"Player");
-	pParent->AddComponent(new CTransform);
-	pParent->AddComponent(new CMeshRender);
-	pParent->AddComponent(new CPlayerScript);
+	CGameObject* pObject = new CGameObject;
+	pObject->SetName(L"Player");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CMeshRender);
+	pObject->AddComponent(new CPlayerScript);
 
-	pParent->Transform()->SetRelativeScale(Vec3(2000.f, 2000.f, 2000.f));
-	pParent->Transform()->SetRelativeRot(Vec3(XM_PI / 2.f, 0.f, 0.f));
-	pParent->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	pParent->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std3DMtrl"));
+	pObject->Transform()->SetRelativeScale(Vec3(2000.f, 2000.f, 2000.f));
+	pObject->Transform()->SetRelativeRot(Vec3(XM_PI / 2.f, 0.f, 0.f));
+	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CubeMesh"));
+	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std3DMtrl"));
+	//pObject->MeshRender()->GetMaterial()->SetTexParam(TEX_CUBE_0, CResMgr::GetInst()->FindRes<CTexture>(L"texture\\skybox\\SkyWater.dds"));
 
-	//pParent->Collider2D()->SetAbsolute(true);
-	//pParent->Collider2D()->SetOffsetScale(Vec2(150.f, 150.f));
-
-	//Ptr<CTexture> pAnimAtlas = CResMgr::GetInst()->FindRes<CTexture>(L"texture\\link.png");
-	//pParent->Animator2D()->CreateAnimation(L"WalkDown", pAnimAtlas, Vec2(0.f, 520.f), Vec2(120.f, 130.f), Vec2(300.f, 300.f), 10, 16);
-	//pParent->Animator2D()->CreateAnimation(L"WalkLeft", pAnimAtlas, Vec2(0.f, 650.f), Vec2(120.f, 130.f), Vec2(300.f, 300.f), 10, 16);
-	//pParent->Animator2D()->Play(L"WalkLeft", true);
-
-	SpawnGameObject(pParent, Vec3(0.f, -500.f, 0.f), L"Player");
+	SpawnGameObject(pObject, Vec3(0.f, -500.f, 0.f), L"Player");
 
 
 	//CGameObject* pChild = new CGameObject;
@@ -172,29 +151,6 @@ void CreateTestLevel()
 
 	//pParent->AddChild(pChild);
 
-	//// Monster
-	//CGameObject* pMonster = new CGameObject;
-	//pMonster->SetName(L"Monster");
-
-	//pMonster->AddComponent(new CTransform);
-	//pMonster->AddComponent(new CMeshRender);
-	//pMonster->AddComponent(new CCollider2D);
-	//pMonster->AddComponent(new CMonsterScript);
-
-	//pMonster->Transform()->SetRelativePos(Vec3(0.f, 250.f, 100.f));
-	//pMonster->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
-
-	//pMonster->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	//pMonster->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"TestShaderMtrl"));	
-	//int i = 2;
-	//pMonster->MeshRender()->GetMaterial()->SetScalarParam(INT_0, &i);
-	////pMonster->MeshRender()->GetMaterial()->SetTexParam(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"texture\\smokeparticle.png"));
-
-
-	//pMonster->Collider2D()->SetAbsolute(true);
-	//pMonster->Collider2D()->SetOffsetScale(Vec2(100.f, 100.f));
-
-	//SpawnGameObject(pMonster, Vec3(0.f, 250.f, 100.f), L"Monster");
 
 
 	//// TileMap Object

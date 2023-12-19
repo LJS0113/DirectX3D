@@ -157,6 +157,12 @@
     <ClInclude Include="CSkyBox.h">
       <Filter>Source\06. Component\RenderComponent\6. SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="CMRT.h">
+      <Filter>Source\03. Manager\06. RenderMgr\MRT</Filter>
+    </ClInclude>
+    <ClInclude Include="CDecal.h">
+      <Filter>Source\06. Component\RenderComponent\4. Decal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -299,6 +305,15 @@
     </ClCompile>
     <ClCompile Include="CSkyBox.cpp">
       <Filter>Source\06. Component\RenderComponent\6. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderMgr_Init.cpp">
+      <Filter>Source\03. Manager\06. RenderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMRT.cpp">
+      <Filter>Source\03. Manager\06. RenderMgr\MRT</Filter>
+    </ClCompile>
+    <ClCompile Include="CDecal.cpp">
+      <Filter>Source\06. Component\RenderComponent\4. Decal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,6 +473,9 @@
     <Filter Include="Source\06. Component\RenderComponent\6. SkyBox">
       <UniqueIdentifier>{6bd0f92b-07ee-433e-a4f1-ef16d481ffe4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\03. Manager\06. RenderMgr\MRT">
+      <UniqueIdentifier>{451312e6-cac8-4825-96a7-e92b5acf856a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -503,6 +521,9 @@
       <Filter>Source\08. ShaderCode\PostProcess</Filter>
     </FxCompile>
     <FxCompile Include="skybox.fx">
+      <Filter>Source\08. ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="decal.fx">
       <Filter>Source\08. ShaderCode\Render</Filter>
     </FxCompile>
   </ItemGroup>

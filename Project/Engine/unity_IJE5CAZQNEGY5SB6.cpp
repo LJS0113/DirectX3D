@@ -18,6 +18,9 @@
 #include "C:\Dx3DEngine\Project\Engine\CRenderMgr.cpp"
 
 
+#include "C:\Dx3DEngine\Project\Engine\CRenderMgr_Init.cpp"
+
+
 #include "C:\Dx3DEngine\Project\Engine\CRes.cpp"
 
 

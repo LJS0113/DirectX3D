@@ -51,7 +51,7 @@ float4 PS_SkyBoxShader(VS_SKY_OUT _in) :SV_Target
     // 1 : Cube Type
     else if(1 == SKYBOX_TYPE)
     {
-        if(g_btexture_0)
+        if (g_btexcube_0)
         {
             float3 vUV = normalize(_in.vPos);
             vOutColor = g_cube_0.Sample(g_sam_0, vUV);
