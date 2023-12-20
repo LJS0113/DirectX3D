@@ -14,6 +14,9 @@
 #include "CMaterial.h"
 #include "CGraphicsShader.h"
 
+#include "CRenderMgr.h"
+#include "CMRT.h"
+
 
 CCamera::CCamera()
 	: CComponent(COMPONENT_TYPE::CAMERA)
@@ -168,6 +171,12 @@ void CCamera::SortObject()
 				SHADER_DOMAIN eDomain = pRenderCom->GetMaterial()->GetShader()->GetDomain();
 				switch (eDomain)
 				{
+				case SHADER_DOMAIN::DOMAIN_DEFERRED:
+					m_vecDeferred.push_back(vecObject[j]);
+					break;
+				case SHADER_DOMAIN::DOMAIN_DEFERRED_DECAL:
+					m_vecDeferredDecal.push_back(vecObject[j]);
+					break;
 				case SHADER_DOMAIN::DOMAIN_OPAQUE:
 					m_vecOpaque.push_back(vecObject[j]);
 					break;
@@ -202,6 +211,19 @@ void CCamera::render()
 	g_transform.matProjInv = m_matProjInv;
 
 	// 쉐이더 도메인에 따라서 순차적으로 그리기
+	// Deferred MRT로 변경
+	// Deferred 물체들을 Deferred MRT에 그리기
+	CRenderMgr::GetInst()->GetMRT(MRT_TYPE::DEFERRED)->OMSet(true);
+	render_deferred();
+
+	// Light MRT로 변경
+	// 물체들에 적용될 광원을 그리기
+
+
+	// Deferred MRT에 그린 물체들을 다시 SwapChain으로 옮기기
+
+	// SwapChain MRT로 변경
+	CRenderMgr::GetInst()->GetMRT(MRT_TYPE::SWAPCHAIN)->OMSet();
 	render_opaque();
 	render_mask();
 	render_decal();
@@ -217,12 +239,26 @@ void CCamera::render()
 
 void CCamera::clear()
 {
+	m_vecDeferred.clear();
+	m_vecDeferredDecal.clear();
 	m_vecOpaque.clear();
 	m_vecMask.clear();
 	m_vecDecal.clear();
 	m_vecTransparent.clear();
 	m_vecPost.clear();
 	m_vecUI.clear();
+}
+
+void CCamera::render_deferred()
+{
+	for (size_t i = 0; i < m_vecDeferred.size(); ++i)
+	{
+		m_vecDeferred[i]->render();
+	}
+	for (size_t i = 0; i < m_vecDeferredDecal.size(); ++i)
+	{
+		m_vecDeferredDecal[i]->render();
+	}
 }
 
 void CCamera::render_opaque()

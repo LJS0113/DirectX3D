@@ -57,6 +57,8 @@ public:
 
     void CopyRenderTarget();
 
+    CMRT* GetMRT(MRT_TYPE _Type) { return m_MRT[(UINT)_Type]; }
+
 private:
     void UpdateData();
     void render_play();
@@ -64,5 +66,6 @@ private:
     void Clear();
 
     void CreateMRT();
+    void ClearMRT();
 };
 

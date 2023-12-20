@@ -32,10 +32,10 @@ struct VS_OUT
 //
 // Param
 // 반사 계수
-#define SPEC_COFFE saturate(g_float_0) 
+#define SPEC_COFFE      saturate(g_float_0) 
 
 #define IS_SKYBOX_ENV   g_btexcube_0
-#define SKYBOX_ENV_TEX      g_cube_0
+#define SKYBOX_ENV_TEX  g_cube_0
 
 
 

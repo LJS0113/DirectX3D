@@ -42,10 +42,6 @@ CRenderMgr::~CRenderMgr()
 
 void CRenderMgr::render()
 {
-    // 렌더링 시작
-    float arrColor[4] = { 0.2f, 0.2f, 0.2f, 1.f };
-    m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->ClearTarget();
-
     // 출력 타겟 지정    
     m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->OMSet();
 
@@ -85,8 +81,15 @@ void CRenderMgr::render_editor()
     // - 해당 카메라가 볼 수 있는 물체(레이어 분류)
     // - 재질에 따른 분류 (재질->쉐이더) 쉐이더 도메인
     //   쉐이더 도메인에 따라서 렌더링 순서분류
+
+    // MRT Clear
+    ClearMRT();
+
+    // 물체 분류
     m_pEditorCam->SortObject();
 
+    // 출력 타겟 지정
+    m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->OMSet();
     m_pEditorCam->render();    
 }
 

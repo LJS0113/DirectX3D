@@ -35,15 +35,34 @@ void CMRT::ClearTarget()
 	{
 		CONTEXT->ClearRenderTargetView(m_arrRT[i]->GetRTV().Get(), m_ClearColor[i]);
 	}
-	CONTEXT->ClearDepthStencilView(m_DSTex->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0.f);
+
+	if (nullptr != m_DSTex)
+	{
+		CONTEXT->ClearDepthStencilView(m_DSTex->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0.f);
+	}
 }
 
-void CMRT::OMSet()
+void CMRT::OMSet(bool _bStay)
 {
 	ID3D11RenderTargetView* arrRTV[8] = {};
 	for (UINT i = 0; i < m_RTCount; ++i)
 	{
 		arrRTV[i] = m_arrRT[i]->GetRTV().Get();
 	}
-	CONTEXT->OMSetRenderTargets(m_RTCount, arrRTV, m_DSTex->GetDSV().Get());
+
+	if (nullptr != m_DSTex)
+	{
+		CONTEXT->OMSetRenderTargets(m_RTCount, arrRTV, m_DSTex->GetDSV().Get());
+	}
+	else
+	{
+		ComPtr<ID3D11DepthStencilView> pDSV = nullptr;
+
+		if (_bStay)
+		{
+			CONTEXT->OMGetRenderTargets(0, nullptr, pDSV.GetAddressOf());
+		}
+
+		CONTEXT->OMSetRenderTargets(m_RTCount, arrRTV, pDSV.Get());
+	}
 }

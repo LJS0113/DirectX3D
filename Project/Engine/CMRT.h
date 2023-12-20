@@ -21,7 +21,7 @@ public:
     void Create(Ptr<CTexture>* _arrRTTex, UINT _RTCount, Ptr<CTexture> _DSTex);
     void SetClearColor(Vec4 _ClearColor, UINT _RTIdx) { m_ClearColor[_RTIdx] = _ClearColor; }
     void ClearTarget();
-    void OMSet();
+    void OMSet(bool _bStay = false);
 
 public:
     CLONE_DISABLE(CMRT);
