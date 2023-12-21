@@ -19,8 +19,11 @@ private:
 
     vector<tDebugShapeInfo>     m_vecShapeInfo;
 
-    vector<tLightInfo>          m_vecLight2D;
-    vector<tLightInfo>          m_vecLight3D;
+    vector<CLight2D*>           m_vecLight2D;
+    vector<tLightInfo>          m_vecLight2DInfo;
+
+    vector<CLight3D*>           m_vecLight3D;
+    vector<tLightInfo>          m_vecLight3DInfo;
 
     CStructuredBuffer*          m_Light2DBuffer;
     CStructuredBuffer*          m_Light3DBuffer;
@@ -40,12 +43,25 @@ public:
     int RegisterCamera(CCamera* _Cam, int _idx);
     void RegisterEditorCamera(CCamera* _Cam) { m_pEditorCam = _Cam; }
     void SetRenderFunc(bool _IsPlay);
-    void RegisterLight2D(const tLightInfo& _Light2D) { m_vecLight2D.push_back(_Light2D); }
-    void RegisterLight3D(const tLightInfo& _Light3D) { m_vecLight3D.push_back(_Light3D); }
+    UINT RegisterLight2D(CLight2D* _Light2D, const tLightInfo& _Info) 
+    { 
+        m_vecLight2D.push_back(_Light2D); 
+        m_vecLight2DInfo.push_back(_Info); 
+        return m_vecLight2D.size() - 1;
+    }
+    UINT RegisterLight3D(CLight3D* _Light3D, const tLightInfo& _Info) 
+    {
+        m_vecLight3D.push_back(_Light3D);
+        m_vecLight3DInfo.push_back(_Info);
+        return m_vecLight3D.size() - 1;
+    }
     void ClearCamera() { m_vecCam.clear(); }
 
     void AddDebugShapeInfo(const tDebugShapeInfo& _info) { m_vecShapeInfo.push_back(_info); }
     vector<tDebugShapeInfo>& GetDebugShapeInfo() { return m_vecShapeInfo; }
+
+    const vector<CLight2D*>& GetLight2D() { return m_vecLight2D; }
+    const vector<CLight3D*>& GetLight3D() { return m_vecLight3D; }
 
     CCamera* GetMainCam() 
     { 

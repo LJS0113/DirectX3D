@@ -1,22 +1,32 @@
 #pragma once
 #include "CComponent.h"
 
+#include "CMesh.h"
+#include "CMaterial.h"
 
 class CLight3D :
     public CComponent
 {
 private :
-    tLightInfo m_LightInfo;
+    tLightInfo      m_LightInfo;
+
+    Ptr<CMesh>      m_Mesh;
+    Ptr<CMaterial>  m_Mtrl;
+
+    UINT            m_LightIdx;
 
 public:
     virtual void finaltick() override;
+
+    void render();
+
     virtual void SaveToLevelFile(FILE* _File) override;
     virtual void LoadFromLevelFile(FILE* _FILE) override;
 
 public:
     void SetLightColor(Vec3 _Color) { m_LightInfo.Color.vDiffuse = _Color; }
     void SetLightAmbient(Vec3 _Amb) { m_LightInfo.Color.vAmbient = _Amb; }
-    void SetLightType(LIGHT_TYPE _type) { m_LightInfo.LightType = (int)_type; }
+    void SetLightType(LIGHT_TYPE _type);
     void SetRadius(float _fRadius) { m_LightInfo.Radius = _fRadius; };
     void SetAngle(float _Angle) { m_LightInfo.Angle = _Angle; }
 

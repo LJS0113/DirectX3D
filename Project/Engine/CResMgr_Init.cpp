@@ -622,7 +622,7 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->CreateVertexShader(L"shader\\std3d.fx", "VS_Std3D");
 	pShader->CreatePixelShader(L"shader\\std3d.fx", "PS_Std3D");
 
-	pShader->SetRSType(RS_TYPE::CULL_BACK);
+	pShader->SetRSType(RS_TYPE::CULL_FRONT);
 	pShader->SetDSType(DS_TYPE::LESS);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASK);
 
@@ -694,6 +694,28 @@ void CResMgr::CreateDefaultGraphicsShader()
 	pShader->SetRSType(RS_TYPE::CULL_BACK);
 	pShader->SetDSType(DS_TYPE::LESS_EQUAL);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_DEFERRED);
+
+	// Parameter
+	pShader->AddTexParam(TEX_0, "Output Texture");
+
+	AddRes(pShader->GetKey(), pShader);
+
+	// ============================
+	// DirLightShader
+	// RS_TYPE : CULL_BACK
+	// DS_TYPE : NO_TEST_NO_WRITE
+	// BS_TYPE : ONE_ONE	 
+	// Domain : Light
+	// ============================
+	pShader = new CGraphicsShader;
+	pShader->SetKey(L"DirLightShader");
+
+	pShader->CreateVertexShader(L"shader\\light.fx", "VS_DirLightShader");
+	pShader->CreatePixelShader(L"shader\\light.fx", "PS_DirLightShader");
+
+	pShader->SetRSType(RS_TYPE::CULL_BACK);
+	pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_LIGHT);
 
 	// Parameter
 	pShader->AddTexParam(TEX_0, "Output Texture");
@@ -792,4 +814,9 @@ void CResMgr::CreateDefaultMaterial()
 	pMtrl = new CMaterial(true);
 	pMtrl->SetShader(FindRes<CGraphicsShader>(L"Std3D_DeferredShader"));
 	AddRes(L"Std3D_DeferredMtrl", pMtrl);
+
+	// DirLightShader
+	pMtrl = new CMaterial(true);
+	pMtrl->SetShader(FindRes<CGraphicsShader>(L"DirLightShader"));
+	AddRes(L"DirLightMtrl", pMtrl);
 }

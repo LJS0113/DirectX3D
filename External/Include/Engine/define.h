@@ -201,6 +201,8 @@ enum class SHADER_DOMAIN
 	DOMAIN_TRANSPARENT,		// 반투명
 	DOMAIN_POSTPROCESS,		// 후 처리
 	DOMAIN_UI,
+
+	DOMAIN_LIGHT,			// 광원 타입
 	DOMAIN_UNDEFINED,		// 미정
 };
 

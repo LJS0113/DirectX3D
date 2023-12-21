@@ -5,6 +5,7 @@
 #include "CDevice.h"
 #include "CRenderMgr.h"
 #include "CTransform.h"
+#include "CLight3D.h"
 
 #include "CLevelMgr.h"
 #include "CLevel.h"
@@ -218,7 +219,14 @@ void CCamera::render()
 
 	// Light MRT로 변경
 	// 물체들에 적용될 광원을 그리기
+	// Deferred물체에 광원 적용시키기
+	CRenderMgr::GetInst()->GetMRT(MRT_TYPE::LIGHT)->OMSet(false);
 
+	const vector<CLight3D*>& vecLight3D = CRenderMgr::GetInst()->GetLight3D();
+	for (size_t i = 0; i < vecLight3D.size(); ++i)
+	{
+		vecLight3D[i]->render();
+	}
 
 	// Deferred MRT에 그린 물체들을 다시 SwapChain으로 옮기기
 

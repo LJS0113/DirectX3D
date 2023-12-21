@@ -39,7 +39,7 @@ void CRenderMgr::CreateMRT()
         Ptr<CTexture> pDSTex = CResMgr::GetInst()->FindRes<CTexture>(L"DepthStencilTex");
 
         m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->Create(arrRTTex, 1, pDSTex);
-        m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->SetClearColor(Vec4(1.f, 0.f, 0.f, 1.f), 0);
+        m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->SetClearColor(Vec4(0.3f, 0.3f, 0.3f, 1.f), 0);
     }
 
     // ======================
@@ -52,7 +52,7 @@ void CRenderMgr::CreateMRT()
         Vec2 vResol = CDevice::GetInst()->GetRenderResolution();
 
         Ptr<CTexture> arrRTTex[8] = {};
-        arrRTTex[0] = CResMgr::GetInst()->CreateTexture(L"DiffuseTargetTex", vResol.x, vResol.y
+        arrRTTex[0] = CResMgr::GetInst()->CreateTexture(L"ColorTargetTex", vResol.x, vResol.y
             , DXGI_FORMAT_R8G8B8A8_UNORM
             , D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET);
 
@@ -64,12 +64,38 @@ void CRenderMgr::CreateMRT()
             , DXGI_FORMAT_R32G32B32A32_FLOAT
             , D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET);
 
-        arrRTTex[3] = CResMgr::GetInst()->CreateTexture(L"DataTargetTex", vResol.x, vResol.y
+        arrRTTex[3] = CResMgr::GetInst()->CreateTexture(L"EmissiveTragetTex", vResol.x, vResol.y
+            , DXGI_FORMAT_R8G8B8A8_UNORM
+            , D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET);
+
+        arrRTTex[4] = CResMgr::GetInst()->CreateTexture(L"DataTargetTex", vResol.x, vResol.y
             , DXGI_FORMAT_R32G32B32A32_FLOAT
             , D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET);
 
-        m_MRT[(UINT)MRT_TYPE::DEFERRED]->Create(arrRTTex, 4, nullptr);
+        m_MRT[(UINT)MRT_TYPE::DEFERRED]->Create(arrRTTex, 5, nullptr);
     }
+
+    // ======================
+    // Light MRT ¸¸µé±â
+    // ======================
+
+    {
+        m_MRT[(UINT)MRT_TYPE::LIGHT] = new CMRT;
+
+        Vec2 vResol = CDevice::GetInst()->GetRenderResolution();
+
+        Ptr<CTexture> arrRTTex[8] = {};
+        arrRTTex[0] = CResMgr::GetInst()->CreateTexture(L"DiffuseTargetTex", vResol.x, vResol.y
+            , DXGI_FORMAT_R8G8B8A8_UNORM
+            , D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET);
+
+        arrRTTex[1] = CResMgr::GetInst()->CreateTexture(L"SpecularTargetTex", vResol.x, vResol.y
+            , DXGI_FORMAT_R8G8B8A8_UNORM
+            , D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET);
+
+        m_MRT[(UINT)MRT_TYPE::LIGHT]->Create(arrRTTex, 2, nullptr);
+    }
+
 }
 
 void CRenderMgr::ClearMRT()

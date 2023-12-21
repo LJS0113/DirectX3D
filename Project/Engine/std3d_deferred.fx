@@ -49,7 +49,8 @@ struct PS_OUT
     float4 vDiffuse     : SV_Target0;
     float4 vNormal      : SV_Target1;
     float4 vPosition    : SV_Target2;
-    float4 vData        : SV_Target3;
+    float4 vEmissive    : SV_Target3;
+    float4 vData        : SV_Target4;
 };
 
 

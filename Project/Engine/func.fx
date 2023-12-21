@@ -5,7 +5,7 @@
 
 void CalcLight2D(float3 _vWorldPos, inout tLightColor _Light)
 {
-    for (int i = 0; i < g_Light2DCount; ++i)
+    for (uint i = 0; i < g_Light2DCount; ++i)
     {
         if (g_Light2DBuffer[i].LightType == 0)
         {
@@ -31,7 +31,7 @@ void CalcLight2D(float3 _vWorldPos, inout tLightColor _Light)
 
 void CalcLight2D(float3 _vWorldPos, float3 _vWorldDir, inout tLightColor _Light)
 {
-    for (int i = 0; i < g_Light2DCount; ++i)
+    for (uint i = 0; i < g_Light2DCount; ++i)
     {
         if (g_Light2DBuffer[i].LightType == 0)
         {
@@ -209,7 +209,7 @@ void GaussianSample(in Texture2D _NoiseTex, float2 _vResolution, float _Nomalize
     {
         for (int j = 0; j < 5; ++j)
         {
-            vOut += _NoiseTex[pixel + offset + int2(j, i)] * GaussianFilter[i][j];
+            vOut += _NoiseTex[pixel + offset + int2(j, i)].xyz * GaussianFilter[i][j];
         }
     }
     
