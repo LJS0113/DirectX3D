@@ -12,8 +12,8 @@
 #include "CTileMap.h"
 #include "CParticleSystem.h"
 #include "CSkyBox.h"
+#include "CDecal.h"
 
 //#include "CCollider3D.h"
 //#include "CAnimator3D.h"
-//#include "Decal.h"
 //#include "Landscape.h"

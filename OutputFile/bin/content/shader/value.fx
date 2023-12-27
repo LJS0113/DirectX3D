@@ -90,7 +90,6 @@ StructuredBuffer<tLightInfo> g_Light3DBuffer : register(t13);
 
 SamplerState g_sam_0 : register(s0);
 SamplerState g_sam_1 : register(s1);
-SamplerState g_sam_2 : register(s2);
 
 #define PI 3.1415926535f
 

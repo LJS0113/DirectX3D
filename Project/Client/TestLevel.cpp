@@ -21,24 +21,6 @@
 
 void CreateTestLevel()
 {
-	//return;
-
-	//// 컴퓨트 쉐이더 테스트
-	//Ptr<CTexture> pTestTexture = 
-	//	CResMgr::GetInst()->CreateTexture(L"ComputeTestTex"
-	//		, 200, 200, DXGI_FORMAT_R8G8B8A8_UNORM
-	//		, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS
-	//		, D3D11_USAGE_DEFAULT );
-
-	//Ptr<CSetColorShader> pCS = (CSetColorShader*)CResMgr::GetInst()->FindRes<CComputeShader>(L"SetColorCS").Get();
-	//pCS->SetTargetTexture(pTestTexture);
-	//pCS->SetColor(Vec3(1.f, 0.f, 1.f));
-	//pCS->Execute();
-
-
-	//Ptr<CSound> pSound = CResMgr::GetInst()->FindRes<CSound>(L"sound\\BGM_Stage1.wav");
-	//pSound->Play(1, 0.5f, false);
-
 	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
 	pCurLevel->ChangeState(LEVEL_STATE::STOP);
 
@@ -79,6 +61,7 @@ void CreateTestLevel()
 
 	SpawnGameObject(pUICam, Vec3(0.f, 0.f, 0.f), 0);
 
+
 	// SkyBox 추가
 	CGameObject* pSkyBox = new CGameObject;
 	pSkyBox->SetName(L"SkyBox");
@@ -86,38 +69,44 @@ void CreateTestLevel()
 	pSkyBox->AddComponent(new CTransform);
 	pSkyBox->AddComponent(new CSkyBox);
 
-	pSkyBox->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 100.f));
-	pSkyBox->SkyBox()->SetSkyBoxType(SKYBOX_TYPE::CUBE);
-	pSkyBox->SkyBox()->SetSkyBoxTexture(CResMgr::GetInst()->FindRes<CTexture>(L"texture\\skybox\\SkyWater.dds"));
+	pSkyBox->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 100));
+	pSkyBox->SkyBox()->SetSkyBoxType(SKYBOX_TYPE::SPHERE);
+	pSkyBox->SkyBox()->SetSkyBoxTexture(CResMgr::GetInst()->FindRes<CTexture>(L"texture\\skybox\\Sky02.jpg"));
 
 	SpawnGameObject(pSkyBox, Vec3(0.f, 0.f, 0.f), 0);
 
-
-
 	// 광원 추가
 	CGameObject* pLightObj = new CGameObject;
-	pLightObj->SetName(L"Directional Light");
+	pLightObj->SetName(L"Point Light 1");
 
 	pLightObj->AddComponent(new CTransform);
 	pLightObj->AddComponent(new CLight3D);
 
 	pLightObj->Transform()->SetRelativeRot(Vec3(XM_PI / 4.f, XM_PI / 4.f, 0.f));
-	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
-	pLightObj->Light3D()->SetLightColor(Vec3(1.f, 1.f, 1.f));	
-	pLightObj->Light3D()->SetLightAmbient(Vec3(0.15f, 0.15f, 0.15f));
+	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
+	pLightObj->Light3D()->SetRadius(500.f);
+	pLightObj->Light3D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
+	pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
 
-	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
-	//pLightObj->Light3D()->SetLightColor(Vec3(1.f, 0.2f, 0.2f));
-	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
-	//pLightObj->Light3D()->SetRadius(1000.f);
+	SpawnGameObject(pLightObj, Vec3(-250.f, -750.f, 0.f), 0);
 
-	//pLightObj->Light3D()->SetLightType(LIGHT_TYPE::SPOT);
-	//pLightObj->Light3D()->SetLightColor(Vec3(1.f, 0.2f, 0.2f));
-	//pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
-	//pLightObj->Light3D()->SetRadius(1000.f);
-	//pLightObj->Light3D()->SetAngle(XM_PI / 4.f);
 
-	SpawnGameObject(pLightObj, Vec3(-500.f, -250.f, 0.f), 0);
+
+	pLightObj = new CGameObject;
+	pLightObj->SetName(L"Point Light 2");
+
+	pLightObj->AddComponent(new CTransform);
+	pLightObj->AddComponent(new CLight3D);
+
+	pLightObj->Transform()->SetRelativeRot(Vec3(XM_PI / 4.f, XM_PI / 4.f, 0.f));
+	pLightObj->Light3D()->SetLightType(LIGHT_TYPE::POINT);
+	pLightObj->Light3D()->SetRadius(500.f);
+	pLightObj->Light3D()->SetLightColor(Vec3(1.f, 1.f, 1.f));
+	pLightObj->Light3D()->SetLightAmbient(Vec3(0.f, 0.f, 0.f));
+
+	SpawnGameObject(pLightObj, Vec3(250.f, -750.f, 0.f), 0);
+
+
 
 	// 오브젝트 생성
 	CGameObject* pObject = new CGameObject;
@@ -126,79 +115,47 @@ void CreateTestLevel()
 	pObject->AddComponent(new CMeshRender);
 	pObject->AddComponent(new CPlayerScript);
 
-	pObject->Transform()->SetRelativeScale(Vec3(2000.f, 2000.f, 2000.f));
-	pObject->Transform()->SetRelativeRot(Vec3(XM_PI / 2.f, 0.f, 0.f));
+	pObject->Transform()->SetRelativeScale(Vec3(1000.f, 1000.f, 1000.f));
+	pObject->Transform()->SetRelativeRot(Vec3(0.f, 0.f, 0.f));
+
 	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"SphereMesh"));
 	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std3D_DeferredMtrl"));
 	pObject->MeshRender()->GetMaterial()->SetTexParam(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"texture\\tile\\TILE_01.tga"));
 	pObject->MeshRender()->GetMaterial()->SetTexParam(TEX_1, CResMgr::GetInst()->FindRes<CTexture>(L"texture\\tile\\TILE_01_N.tga"));
-	SpawnGameObject(pObject, Vec3(0.f, -500.f, 0.f), L"Player");
+
+	SpawnGameObject(pObject, Vec3(0.f, 0.f, 0.f), L"Player");
+
+	pObject = new CGameObject;
+	pObject->SetName(L"Plane");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CMeshRender);
+
+	pObject->Transform()->SetRelativeScale(Vec3(2000.f, 2000.f, 2000.f));
+	pObject->Transform()->SetRelativeRot(Vec3(XM_PI / 2.f, 0.f, 0.f));
+
+	pObject->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	pObject->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std3D_DeferredMtrl"));
+	pObject->MeshRender()->GetMaterial()->SetTexParam(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"texture\\tile\\TILE_01.tga"));
+	pObject->MeshRender()->GetMaterial()->SetTexParam(TEX_1, CResMgr::GetInst()->FindRes<CTexture>(L"texture\\tile\\TILE_01_N.tga"));
+
+	SpawnGameObject(pObject, Vec3(0.f, -1000.f, 0.f), L"Default");
 
 
-	//CGameObject* pChild = new CGameObject;
+	pObject = new CGameObject;
+	pObject->SetName(L"Decal");
+	pObject->AddComponent(new CTransform);
+	pObject->AddComponent(new CDecal);
 
-	//pChild->SetName(L"Child");
-	//pChild->AddComponent(new CTransform);
-	//pChild->AddComponent(new CMeshRender);
+	pObject->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 200.f));
+	pObject->Transform()->SetRelativeRot(Vec3(0.f, 0.f, 0.f));
 
-	//pChild->Transform()->SetAbsolute(true);
-	//pChild->Transform()->SetRelativePos(200.f, 0.f, 0.f);
-	//pChild->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
+	pObject->Decal()->SetDeferredDecal(true);
+	pObject->Decal()->ActivateEmissive(true);
 
-	//pChild->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	//pChild->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"Std2DLightMtrl"));
-	//pChild->MeshRender()->GetMaterial()->SetTexParam(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"texture\\Fighter.bmp"));
-
-	//pParent->AddChild(pChild);
+	SpawnGameObject(pObject, Vec3(0.f, 0.f, 500.f), L"Default");
 
 
 
-	//// TileMap Object
-	//CGameObject* pTileMap = new CGameObject;
-	//pTileMap->SetName(L"TileMap");
-
-	//pTileMap->AddComponent(new CTransform);
-	//pTileMap->AddComponent(new CTileMap);
-
-	//pTileMap->Transform()->SetRelativePos(Vec3(0.f, 0.f, 600.f));
-	//pTileMap->Transform()->SetRelativeScale(Vec3(500.f, 500.f, 1.f));
-
-	//pTileMap->TileMap()->GetMaterial()->SetTexParam(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"texture\\TILE.bmp"));
-	//pTileMap->TileMap()->SetSliceSize(Vec2(0.125f, 0.166f));
-	//pTileMap->TileMap()->SetTileCount(8, 8);
-
-	//SpawnGameObject(pTileMap, Vec3(0.f, 0.f, 600.f), L"Tile");
-
-	//// Particle Object
-	//CGameObject* pParticleObj = new CGameObject;
-	//pParticleObj->SetName(L"ParticleObject");
-	//pParticleObj->AddComponent(new CTransform);
-	//pParticleObj->AddComponent(new CParticleSystem);
-
-	//pParticleObj->ParticleSystem();
-
-	//SpawnGameObject(pParticleObj, Vec3(0.f, 0.f, 0.f), 0);
-
-
-	/*CGameObject* pPostProcess = new CGameObject;
-	pPostProcess->SetName(L"PostProcess");
-	pPostProcess->AddComponent(new CTransform);
-	pPostProcess->AddComponent(new CMeshRender);
-	pPostProcess->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	pPostProcess->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"GrayMtrl"));
-	SpawnGameObject(pPostProcess, Vec3(0.f, 0.f, 0.f), 0);*/
-
-	/*CGameObject* pDistortion = new CGameObject;
-	pDistortion->SetName(L"Distortion");
-	pDistortion->AddComponent(new CTransform);
-	pDistortion->AddComponent(new CMeshRender);
-	pDistortion->Transform()->SetRelativeScale(200.f, 200.f, 1.f);
-	pDistortion->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	pDistortion->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"DistortionMtrl"));
-	SpawnGameObject(pDistortion, Vec3(0.f, 0.f, 500.f), 0);*/
-
-	
-	
 	// 충돌 시킬 레이어 짝 지정
-	CCollisionMgr::GetInst()->LayerCheck(L"Player", L"Monster");	
+	CCollisionMgr::GetInst()->LayerCheck(L"Player", L"Monster");
 }

@@ -37,6 +37,7 @@ struct tDebugShapeInfo
 	Vec4		vColor;
 	float		fMaxTime;
 	float		fCurTime;
+	bool		bDepthTest;
 };
 
 

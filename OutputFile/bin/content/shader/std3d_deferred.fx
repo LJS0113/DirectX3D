@@ -26,6 +26,17 @@ struct VS_OUT
     float3 vViewBinormal : BINORMAL;
 };
 
+//=================================================
+// Std3D_Deferred
+// DOMAIN               : Deferred
+// MRT                  : DEFERRED MRT
+// Rasterizer State     : CULL_BACK
+// DepthStencil State   : LESS
+// Blend State          : Default
+
+// Parameter
+#define     SpecCoeff   g_float_0
+//=================================================
 
 VS_OUT VS_Std3D_Deferred(VS_IN _in)
 {
@@ -46,7 +57,7 @@ VS_OUT VS_Std3D_Deferred(VS_IN _in)
 
 struct PS_OUT
 {
-    float4 vDiffuse     : SV_Target0;
+    float4 vColor       : SV_Target0;
     float4 vNormal      : SV_Target1;
     float4 vPosition    : SV_Target2;
     float4 vEmissive    : SV_Target3;
@@ -58,14 +69,13 @@ PS_OUT PS_Std3D_Deferred(VS_OUT _in)
 {
     PS_OUT output = (PS_OUT) 0.f;
     
-    output.vDiffuse = float4(1.0f, 0.f, 1.f, 1.f);
+    output.vColor = float4(1.0f, 0.f, 1.f, 1.f);
     
     float3 vViewNormal = _in.vViewNormal;
     
     if (g_btex_0)
     {
-        output.vDiffuse = g_tex_0.Sample(g_sam_0, _in.vUV);
-        output.vDiffuse.a = 1.f;
+        output.vColor = g_tex_0.Sample(g_sam_0, _in.vUV);
     }
     
     if (g_btex_1)
@@ -88,6 +98,8 @@ PS_OUT PS_Std3D_Deferred(VS_OUT _in)
     output.vNormal = float4(vViewNormal, 1.f);
     output.vPosition = float4(_in.vViewPos, 1.f);
     output.vData = float4(0.f, 0.f, 0.f, 1.f);
+    
+    output.vColor.a = saturate(SpecCoeff);
     
     return output;
 }

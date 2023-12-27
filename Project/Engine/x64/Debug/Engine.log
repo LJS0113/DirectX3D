@@ -134,7 +134,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 17 local object(s)
+  // 16 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -154,9 +154,6 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   SamplerState g_sam_1
-  {
-  };
-  SamplerState g_sam_2
   {
   };
   
@@ -226,7 +223,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 17 local object(s)
+  // 16 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -248,13 +245,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   SamplerState g_sam_1
   {
   };
-  SamplerState g_sam_2
-  {
-  };
   
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Dx3DEngine\External\Library\Engine\light.cso
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
   //
@@ -321,7 +312,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 19 local object(s)
+  // 18 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -341,9 +332,6 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   SamplerState g_sam_1
-  {
-  };
-  SamplerState g_sam_2
   {
   };
   StructuredBuffer ParticleBuffer;
@@ -415,7 +403,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 21 local object(s)
+  // 20 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -435,9 +423,6 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   SamplerState g_sam_1
-  {
-  };
-  SamplerState g_sam_2
   {
   };
   RWStructuredBuffer ParticleBuffer;
@@ -511,7 +496,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 17 local object(s)
+  // 16 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -531,9 +516,6 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   SamplerState g_sam_1
-  {
-  };
-  SamplerState g_sam_2
   {
   };
   
@@ -603,7 +585,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 18 local object(s)
+  // 17 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -623,9 +605,6 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   SamplerState g_sam_1
-  {
-  };
-  SamplerState g_sam_2
   {
   };
   RWTexture2D g_Output;
@@ -696,7 +675,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 17 local object(s)
+  // 16 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -718,14 +697,11 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   SamplerState g_sam_1
   {
   };
-  SamplerState g_sam_2
-  {
-  };
-  
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
   //
   // FX Version: fx_5_0
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
 FXC : warning X4717: Effects deprecated for D3DCompiler_47
   
   //
@@ -792,7 +768,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 18 local object(s)
+  // 17 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -812,9 +788,6 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   {
   };
   SamplerState g_sam_1
-  {
-  };
-  SamplerState g_sam_2
   {
   };
   StructuredBuffer TileBuffer;
@@ -885,7 +858,7 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   }
   
   //
-  // 17 local object(s)
+  // 16 local object(s)
   //
   Texture2D g_tex_0;
   Texture2D g_tex_1;
@@ -907,8 +880,18 @@ FXC : warning X4717: Effects deprecated for D3DCompiler_47
   SamplerState g_sam_1
   {
   };
-  SamplerState g_sam_2
-  {
-  };
+  
+  unity_XRP92O9YBXGBX4NG.cpp
+C:\Dx3DEngine\Project\Engine\CAnim2D.cpp(33,32): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'unity_XRP92O9YBXGBX4NG.cpp'을(를) 컴파일하는 중)
+  
+C:\Dx3DEngine\Project\Engine\CRenderMgr.h(51,36): warning C4267: 'return': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'unity_XRP92O9YBXGBX4NG.cpp'을(를) 컴파일하는 중)
+  
+C:\Dx3DEngine\Project\Engine\CRenderMgr.h(58,36): warning C4267: 'return': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'unity_XRP92O9YBXGBX4NG.cpp'을(를) 컴파일하는 중)
+  
+C:\Dx3DEngine\Project\Engine\CMRT.cpp(41,105): warning C4244: '인수': 'float'에서 'UINT8'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'unity_XRP92O9YBXGBX4NG.cpp'을(를) 컴파일하는 중)
   
   Engine.vcxproj -> C:\Dx3DEngine\External\Library\Engine\Engine_d.lib

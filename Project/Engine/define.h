@@ -170,6 +170,8 @@ enum class BS_TYPE
 	MASK,			// Alpha Coverage
 	ALPHA_BLEND,	// Alpha °è¼ö 
 	ONE_ONE,		// 1:1 È¥ÇÕ
+
+	DEFERRED_DECAL_BLEND, // 0Å¸°ÙÀº AlphaBlend, 1Å¸°ÙÀº ONE_ONE Blend
 	END,
 };
 
@@ -276,6 +278,7 @@ enum class MRT_TYPE
 {
 	SWAPCHAIN,
 	DEFERRED,
+	DEFERRED_DECAL,
 	LIGHT,
 	SHADOWMAP,
 	END,

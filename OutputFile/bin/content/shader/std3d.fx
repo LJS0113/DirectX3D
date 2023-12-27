@@ -105,7 +105,7 @@ float4 PS_Std3D(VS_OUT _in) : SV_Target
         
         vEyeReflect = normalize(mul(float4(vEyeReflect, 0.f), g_matViewInv));
         
-        vOutColor *= SKYBOX_ENV_TEX.Sample(g_sam_2, vEyeReflect);
+        vOutColor *= SKYBOX_ENV_TEX.Sample(g_sam_0, vEyeReflect);
     }
     
     return vOutColor;

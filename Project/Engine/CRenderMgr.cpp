@@ -19,38 +19,35 @@ CRenderMgr::CRenderMgr()
 {
     Vec2 vResolution = CDevice::GetInst()->GetRenderResolution();
     m_RTCopyTex = CResMgr::GetInst()->CreateTexture(L"RTCopyTex"
-                                                    , (UINT)vResolution.x, (UINT)vResolution.y
-                                                    , DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
-                                                    , D3D11_USAGE_DEFAULT);
+        , (UINT)vResolution.x, (UINT)vResolution.y
+        , DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
+        , D3D11_USAGE_DEFAULT);
 
     CResMgr::GetInst()->FindRes<CMaterial>(L"GrayMtrl")->SetTexParam(TEX_0, m_RTCopyTex);
 
     CResMgr::GetInst()->FindRes<CMaterial>(L"DistortionMtrl")->SetTexParam(TEX_0, m_RTCopyTex);
+
 }
 
 CRenderMgr::~CRenderMgr()
 {
     if (nullptr != m_Light2DBuffer)
         delete m_Light2DBuffer;
+
     if (nullptr != m_Light3DBuffer)
         delete m_Light3DBuffer;
 
     DeleteArray(m_MRT);
 }
 
-
-
 void CRenderMgr::render()
 {
-    // 출력 타겟 지정    
-    m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->OMSet();
-
     // 광원 및 전역 데이터 업데이트 및 바인딩
     UpdateData();
 
     // 렌더 함수 호출
     (this->*RENDER_FUNC)();
-    
+
     // 광원 해제
     Clear();
 }
@@ -77,20 +74,15 @@ void CRenderMgr::render_play()
 
 void CRenderMgr::render_editor()
 {
-    // 물체 분류작업
-    // - 해당 카메라가 볼 수 있는 물체(레이어 분류)
-    // - 재질에 따른 분류 (재질->쉐이더) 쉐이더 도메인
-    //   쉐이더 도메인에 따라서 렌더링 순서분류
-
-    // MRT Clear
+    // MRT Clear    
     ClearMRT();
 
     // 물체 분류
     m_pEditorCam->SortObject();
 
-    // 출력 타겟 지정
+    // 출력 타겟 지정    
     m_MRT[(UINT)MRT_TYPE::SWAPCHAIN]->OMSet();
-    m_pEditorCam->render();    
+    m_pEditorCam->render();
 }
 
 
@@ -101,13 +93,13 @@ int CRenderMgr::RegisterCamera(CCamera* _Cam, int _idx)
         m_vecCam.resize(_idx + 1);
     }
 
-    m_vecCam[_idx] = _Cam;    
+    m_vecCam[_idx] = _Cam;
     return _idx;
 }
 
 void CRenderMgr::SetRenderFunc(bool _IsPlay)
 {
-    if(_IsPlay)
+    if (_IsPlay)
         RENDER_FUNC = &CRenderMgr::render_play;
     else
         RENDER_FUNC = &CRenderMgr::render_editor;
@@ -121,8 +113,6 @@ void CRenderMgr::CopyRenderTarget()
 
 void CRenderMgr::UpdateData()
 {
-
-    // 2D
     // 구조화버퍼의 크기가 모자라면 더 크게 새로 만든다.
     if (m_Light2DBuffer->GetElementCount() < m_vecLight2DInfo.size())
     {
@@ -133,8 +123,6 @@ void CRenderMgr::UpdateData()
     m_Light2DBuffer->SetData(m_vecLight2DInfo.data(), sizeof(tLightInfo) * m_vecLight2DInfo.size());
     m_Light2DBuffer->UpdateData(12, PIPELINE_STAGE::PS_PIXEL);
 
-    // 3D
-    // 구조화버퍼의 크기가 모자라면 더 크게 새로 만든다.
     if (m_Light3DBuffer->GetElementCount() < m_vecLight3DInfo.size())
     {
         m_Light3DBuffer->Create(sizeof(tLightInfo), m_vecLight3DInfo.size(), SB_TYPE::READ_ONLY, true);
@@ -143,6 +131,7 @@ void CRenderMgr::UpdateData()
     // 구조화버퍼로 광원 데이터를 옮긴다.
     m_Light3DBuffer->SetData(m_vecLight3DInfo.data(), sizeof(tLightInfo) * m_vecLight3DInfo.size());
     m_Light3DBuffer->UpdateData(13, PIPELINE_STAGE::PS_PIXEL);
+
 
     // GlobalData 에 광원 개수정보 세팅
     GlobalData.Light2DCount = m_vecLight2D.size();

@@ -7,7 +7,7 @@
 class CLight3D :
     public CComponent
 {
-private :
+private:
     tLightInfo      m_LightInfo;
 
     Ptr<CMesh>      m_Mesh;
@@ -17,17 +17,17 @@ private :
 
 public:
     virtual void finaltick() override;
-
     void render();
 
+
     virtual void SaveToLevelFile(FILE* _File) override;
-    virtual void LoadFromLevelFile(FILE* _FILE) override;
+    virtual void LoadFromLevelFile(FILE* _File) override;
 
 public:
     void SetLightColor(Vec3 _Color) { m_LightInfo.Color.vDiffuse = _Color; }
     void SetLightAmbient(Vec3 _Amb) { m_LightInfo.Color.vAmbient = _Amb; }
     void SetLightType(LIGHT_TYPE _type);
-    void SetRadius(float _fRadius) { m_LightInfo.Radius = _fRadius; };
+    void SetRadius(float _fRadius);
     void SetAngle(float _Angle) { m_LightInfo.Angle = _Angle; }
 
     Vec3 GetLightColor() { return m_LightInfo.Color.vDiffuse; }
@@ -37,7 +37,6 @@ public:
     float GetAngle() { return m_LightInfo.Angle; }
 
     CLONE(CLight3D);
-
 public:
     CLight3D();
     ~CLight3D();

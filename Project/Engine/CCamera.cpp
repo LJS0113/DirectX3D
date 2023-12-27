@@ -18,6 +18,9 @@
 #include "CRenderMgr.h"
 #include "CMRT.h"
 
+#include "CResMgr.h"
+#include "CMesh.h"
+#include "CMaterial.h"
 
 CCamera::CCamera()
 	: CComponent(COMPONENT_TYPE::CAMERA)
@@ -228,10 +231,27 @@ void CCamera::render()
 		vecLight3D[i]->render();
 	}
 
-	// Deferred MRT에 그린 물체들을 다시 SwapChain으로 옮기기
-
+	// Deferred MRT 에 그린 물체에 Light MRT 출력한 광원과 합쳐서 
+	// 다시 SwapChain 타겟으로 그리기
 	// SwapChain MRT로 변경
 	CRenderMgr::GetInst()->GetMRT(MRT_TYPE::SWAPCHAIN)->OMSet();
+	static Ptr<CMesh> pRectMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh");
+	static Ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"MergeMtrl");
+
+	static bool bSet = false;
+	if (!bSet)
+	{
+		bSet = true;
+		pMtrl->SetTexParam(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"ColorTargetTex"));
+		pMtrl->SetTexParam(TEX_1, CResMgr::GetInst()->FindRes<CTexture>(L"DiffuseTargetTex"));
+		pMtrl->SetTexParam(TEX_2, CResMgr::GetInst()->FindRes<CTexture>(L"SpecularTargetTex"));
+		pMtrl->SetTexParam(TEX_3, CResMgr::GetInst()->FindRes<CTexture>(L"EmissiveTargetTex"));
+	}
+
+	pMtrl->UpdateData();
+	pRectMesh->render();
+
+	// Forward Rendering
 	render_opaque();
 	render_mask();
 	render_decal();
@@ -263,6 +283,8 @@ void CCamera::render_deferred()
 	{
 		m_vecDeferred[i]->render();
 	}
+
+	CRenderMgr::GetInst()->GetMRT(MRT_TYPE::DEFERRED_DECAL)->OMSet();
 	for (size_t i = 0; i < m_vecDeferredDecal.size(); ++i)
 	{
 		m_vecDeferredDecal[i]->render();

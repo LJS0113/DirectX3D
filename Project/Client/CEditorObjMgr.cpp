@@ -38,6 +38,18 @@ void CEditorObjMgr::init()
 	m_DebugShape[(UINT)SHAPE_TYPE::CIRCLE]->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CircleMesh_Debug"));
 	m_DebugShape[(UINT)SHAPE_TYPE::CIRCLE]->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"DebugShapeMtrl"));
 
+	m_DebugShape[(UINT)SHAPE_TYPE::CUBE] = new CGameObjectEx;
+	m_DebugShape[(UINT)SHAPE_TYPE::CUBE]->AddComponent(new CTransform);
+	m_DebugShape[(UINT)SHAPE_TYPE::CUBE]->AddComponent(new CMeshRender);
+	m_DebugShape[(UINT)SHAPE_TYPE::CUBE]->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"CubeMesh_Debug"));
+	m_DebugShape[(UINT)SHAPE_TYPE::CUBE]->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"DebugShapeMtrl"));
+
+	m_DebugShape[(UINT)SHAPE_TYPE::SPHERE] = new CGameObjectEx;
+	m_DebugShape[(UINT)SHAPE_TYPE::SPHERE]->AddComponent(new CTransform);
+	m_DebugShape[(UINT)SHAPE_TYPE::SPHERE]->AddComponent(new CMeshRender);
+	m_DebugShape[(UINT)SHAPE_TYPE::SPHERE]->MeshRender()->SetMesh(CResMgr::GetInst()->FindRes<CMesh>(L"SphereMesh_Debug"));
+	m_DebugShape[(UINT)SHAPE_TYPE::SPHERE]->MeshRender()->SetMaterial(CResMgr::GetInst()->FindRes<CMaterial>(L"DebugShapeMtrl"));
+
 	// EditorObject »ý¼º
 	CGameObjectEx* pEditorCamObj = new CGameObjectEx;
 	pEditorCamObj->AddComponent(new CTransform);
@@ -107,8 +119,10 @@ void CEditorObjMgr::render()
 			pShapeObj = m_DebugShape[(UINT)SHAPE_TYPE::CIRCLE];
 			break;
 		case SHAPE_TYPE::CUBE:
+			pShapeObj = m_DebugShape[(UINT)SHAPE_TYPE::CUBE];
 			break;
 		case SHAPE_TYPE::SPHERE:
+			pShapeObj = m_DebugShape[(UINT)SHAPE_TYPE::SPHERE];
 			break;		
 		}
 
@@ -125,6 +139,12 @@ void CEditorObjMgr::render()
 		}
 		
 		pShapeObj->MeshRender()->GetMaterial()->SetScalarParam(VEC4_0, &iter->vColor);
+
+		if (iter->bDepthTest)
+			pShapeObj->MeshRender()->GetMaterial()->GetShader()->SetDSType(DS_TYPE::LESS);
+		else
+			pShapeObj->MeshRender()->GetMaterial()->GetShader()->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+		
 		pShapeObj->render();
 
 		iter->fCurTime += DT;
